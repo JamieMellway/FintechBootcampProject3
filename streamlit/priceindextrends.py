@@ -27,7 +27,7 @@ def render_page():
     if st.button("Generate Chart"):
         if building_types_selected:
             #Show graph with Benchmark prices
-            st.write("# Show graph with Benchmark prices")
+            st.write("# Canadian Real Estate Association (CREA) MLS® Home Price Index (HPI) Benchmarks Seasonally Adjusted")
             graph3 = ontario_df.dropna().loc[:, building_types_selected].hvplot.line(
                 label="Ontario Benchmarks 2005-2023",
                 xlabel="Date",
@@ -45,5 +45,7 @@ def render_page():
                 }
             )
             st.write(hv.render(graph3, backend='bokeh'))
+
+            st.write("Source: https://creastats.crea.ca/en-CA/")
 
     

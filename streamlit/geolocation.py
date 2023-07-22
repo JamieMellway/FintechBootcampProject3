@@ -18,7 +18,7 @@ def render_page():
     region03 = pd.read_csv(Path("../Resources/BRANTFORD_REGION.csv"))
     region04 = pd.read_csv(Path("../Resources/CAMBRIDGE.csv"))
     region05 = pd.read_csv(Path("../Resources/GREATER_TORONTO.csv"))
-    region06 = pd.read_csv(Path("../Resources/GREY_BRUCE_OWN_SOUND.csv"))
+    region06 = pd.read_csv(Path("../Resources/GREY_BRUCE_OWEN_SOUND.csv"))
     region07 = pd.read_csv(Path("../Resources/GUELPH_AND_DISTRICT.csv"))
     region08 = pd.read_csv(Path("../Resources/HAMILTON_BURLINGTON.csv"))
     region09 = pd.read_csv(Path("../Resources/HURON_PERTH.csv"))
@@ -174,10 +174,12 @@ def render_page():
         frame_width = 1000,
         frame_height = 700,
         hover_cols='all',
-        title='Ontario Benchmark by Region Feb 2023',
+        title='Ontario Benchmark by Region June 2023',
         xlabel='Longitude',
         ylabel='Latitude'
         )
 
     map_plot
     st.write(hv.render(map_plot, backend='bokeh'))
+
+    st.write("Source: https://creastats.crea.ca/en-CA/")

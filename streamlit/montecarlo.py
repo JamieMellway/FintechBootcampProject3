@@ -61,3 +61,4 @@ def render_page():
         text = f"There is a 95% chance that an initial real estate investment of \${initial_investment:,} over the next {years} years will end within in the range of \${ci_lower:,} and \${ci_upper:,}"
         st.write(text)
 
+        st.write("Source: https://creastats.crea.ca/en-CA/")

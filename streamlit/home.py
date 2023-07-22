@@ -4,6 +4,7 @@ from utils.MultiApp import MultiApp
 import priceindextrends 
 import geolocation
 import montecarlo
+import dataload
 
 # def priceindextrends():
 #     st.header("Trends")
@@ -27,6 +28,7 @@ def main():
     #app.add_app("Trends (Regional)", priceindextrendsregional.render_page)
     app.add_app("Geolocation", geolocation.render_page)
     app.add_app("Monte Carlo", montecarlo.render_page)
+    app.add_app("Machine Learning - Data Load", dataload.render_page)
     app.add_app("Machine Learning", machinelearning)
     app.add_app("Chat Bot", chatbot)
     
