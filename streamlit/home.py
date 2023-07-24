@@ -5,18 +5,7 @@ import priceindextrends
 import geolocation
 import montecarlo
 import dataload
-
-# def priceindextrends():
-#     st.header("Trends")
-
-# def geolocation():
-#     st.header("Geolocation")
-
-# def montecarlo():
-#     st.header("Monte Carlo")
-
-def machinelearning():
-    st.header("Machine Learning")
+import machinelearning
 
 def chatbot():
     st.header("Chat bot")
@@ -29,7 +18,7 @@ def main():
     app.add_app("Geolocation", geolocation.render_page)
     app.add_app("Monte Carlo", montecarlo.render_page)
     app.add_app("Machine Learning - Data Load", dataload.render_page)
-    app.add_app("Machine Learning", machinelearning)
+    app.add_app("Machine Learning", machinelearning.render_page)
     app.add_app("Chat Bot", chatbot)
     
     # The main app

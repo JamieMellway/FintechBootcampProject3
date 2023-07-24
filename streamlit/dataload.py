@@ -96,6 +96,7 @@ def render_page():
     #benchmark_plot
 
     st.write(hv.render(benchmark_plot, backend='bokeh'))
+    st.write("Source: https://creastats.crea.ca/en-CA/")
 
     st.header("Sources of data")
 
@@ -260,7 +261,7 @@ def render_page():
     ir.set_index('Rates', inplace=True)
     
     ir_plot = ir["Bank rate"].hvplot.line(
-        x='Date', 
+        x='Rates', 
         y='Bank rate', 
         xlabel='Date', 
         ylabel='Price', 
@@ -319,14 +320,21 @@ def render_page():
     # st.write(hv.render(ir_plot, backend='bokeh'))
     # st.write("Source: https://www150.statcan.gc.ca/")
 
-    most_values = pd.concat([all_regions_df, lumber_grouped_df, wood_grouped_df["Close"], xhb_grouped_df["Close"], itb_grouped_df["Close"], ir["Bank rate"]], axis = 1, join = 'inner')
+    most_values = pd.concat([all_regions_df, lumber_grouped_df, wood_grouped_df["Close"], xhb_grouped_df["Close"], itb_grouped_df["Close"], ir["Bank rate"]], axis = 1, join = 'outer')
     cols = all_regions_df.columns.tolist()
     cols.extend(['Lumber', 'Wood', 'XHB', 'ITB', "Bank rate"])
     most_values.columns = cols
+    
+    #st.write("Most Values")
+    #st.write(most_values)
+
     all_values = pd.concat([most_values, cpi_df], axis =1 , join = 'inner')
 
     all_values
 
     all_values.index.name = 'date'
+
+    st.write("All Values")
+    st.write(all_values)
 
     #all_values.to_csv('../Resources/all_values_superset.csv', index=True)
