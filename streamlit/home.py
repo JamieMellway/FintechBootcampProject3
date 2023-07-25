@@ -17,7 +17,7 @@ def main():
     app.add_app("Monte Carlo", montecarlo.render_page)
     app.add_app("Machine Learning - Data Load", dataload.render_page)
     app.add_app("Machine Learning", machinelearning.render_page)
-    app.add_app("Chat Bot", chatbot.render_page)
+    app.add_app("Property Value", chatbot.render_page)
     
     # The main app
     app.run()
