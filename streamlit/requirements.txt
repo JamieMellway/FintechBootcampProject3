@@ -265,7 +265,7 @@ pep8=1.7.1=py37haa95532_1
 pexpect=4.8.0=pyhd3eb1b0_3
 pickleshare=0.7.5=pyhd3eb1b0_1003
 pillow=9.2.0=py37hdc2b20a_1
-pip=22.2.2=py37haa95532_0
+pip=23.2.1=pypi_0
 pkginfo=1.8.2=pyhd3eb1b0_0
 pkgutil-resolve-name=1.3.10=py37haa95532_0
 platformdirs=2.5.2=py37haa95532_0
