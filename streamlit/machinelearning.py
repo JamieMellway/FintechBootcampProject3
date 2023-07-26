@@ -33,7 +33,7 @@ def load_csv(name):
 
 def render_page():
     if st.button("Run Analysis"):
-        all_values = load_csv("all_values_superset.csv"))
+        all_values = load_csv("all_values_superset.csv")
         all_values['date'] = pd.to_datetime(all_values['date'], format='%Y-%m')
         all_values.set_index('date', inplace=True)
         all_values.drop(columns=['All-items 8', 'All-items excluding food', 'All-items excluding food and energy'], inplace=True)
