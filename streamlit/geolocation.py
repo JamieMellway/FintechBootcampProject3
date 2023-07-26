@@ -17,7 +17,7 @@ def load_csv(name):
     url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
     response = requests.get(url)
     data = StringIO(response.text)
-    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
+    return pd.read_csv(data)
 
 def render_page():
    #Import Regional Data
