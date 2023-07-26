@@ -1,6 +1,6 @@
 # importing libraries
 import streamlit as st
-from geopy.geocoders import Nominatim
+#from geopy.geocoders import Nominatim
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -80,40 +80,40 @@ def render_page():
     all_regions
 
     # calling the Nominatim tool
-    loc = Nominatim(user_agent="GetLoc")
+    #loc = Nominatim(user_agent="GetLoc")
 
     #Array of regional locations
-    locations = [
-        ["Bancroft, ontario", "Bancroft and Area"],
-        ["Barrie, Ontario", "Barrie And District"], 
-        ["Brantford, Ontario", "Brantford"], 
-        ["Cambridge, Ontario", "Cambridge"], 
-        ["Toronto, Ontario", "Greater Toronto"], 
-        ["Owen Sound, Ontario", "Grey Bruce Owen Sound"], 
-        ["Guelph, Ontario", "Guelph And District"], 
-        ["Hamilton, Ontario", "Hamilton Burlington"], 
-        ["Huron, Ontario", "Huron Perth"], 
-        ["Kawartha Lakes, Ontario", "Kawartha Lakes"], 
-        ["Kingston, Ontario", "Kingston And Area"], 
-        ["Waterloo, Ontario", "Kitchener Waterloo"], 
-        ["Muskoka, Ontario", "Lakelands"], 
-        ["London, Ontario", "London St Thomas"], 
-        ["Mississauga, Ontario", "Mississauga"], 
-        ["Niagara region, Ontario", "Niagara Region"], 
-        ["Northumberland Hills, Ontario", "Northumberland Hills"], 
-        ["North Bay, Ontario", "North Bay"], 
-        ["Oakville, Ontario", "Oakville Milton"], 
-        ["Ottawa, Ontario", "Ottawa"], 
-        ["Peterborough, Ontario", "Peterborough And Kawarthas"], 
-        ["Quinte, Ontario", "Quinte And District"], 
-        ["Rideau, Ontario", "Rideau St Lawrence"], 
-        ["Sault Ste Marie, Ontario", "Sault Ste Marie"], 
-        ["Norfolk General Hospital, Simcoe, Ontario", "Simcoe And District"], 
-        ["Sudbury, Ontario", "Sudbury"],
-        ["Tillsonburg, Ontario", "Tillsonburg District"] ,
-        ["Windsor, Ontario", "Windsor Essex"] ,
-        ["Woodstock, Ontario", "Woodstock Ingersoll"]
-    ]
+    # locations = [
+    #     ["Bancroft, ontario", "Bancroft and Area"],
+    #     ["Barrie, Ontario", "Barrie And District"], 
+    #     ["Brantford, Ontario", "Brantford"], 
+    #     ["Cambridge, Ontario", "Cambridge"], 
+    #     ["Toronto, Ontario", "Greater Toronto"], 
+    #     ["Owen Sound, Ontario", "Grey Bruce Owen Sound"], 
+    #     ["Guelph, Ontario", "Guelph And District"], 
+    #     ["Hamilton, Ontario", "Hamilton Burlington"], 
+    #     ["Huron, Ontario", "Huron Perth"], 
+    #     ["Kawartha Lakes, Ontario", "Kawartha Lakes"], 
+    #     ["Kingston, Ontario", "Kingston And Area"], 
+    #     ["Waterloo, Ontario", "Kitchener Waterloo"], 
+    #     ["Muskoka, Ontario", "Lakelands"], 
+    #     ["London, Ontario", "London St Thomas"], 
+    #     ["Mississauga, Ontario", "Mississauga"], 
+    #     ["Niagara region, Ontario", "Niagara Region"], 
+    #     ["Northumberland Hills, Ontario", "Northumberland Hills"], 
+    #     ["North Bay, Ontario", "North Bay"], 
+    #     ["Oakville, Ontario", "Oakville Milton"], 
+    #     ["Ottawa, Ontario", "Ottawa"], 
+    #     ["Peterborough, Ontario", "Peterborough And Kawarthas"], 
+    #     ["Quinte, Ontario", "Quinte And District"], 
+    #     ["Rideau, Ontario", "Rideau St Lawrence"], 
+    #     ["Sault Ste Marie, Ontario", "Sault Ste Marie"], 
+    #     ["Norfolk General Hospital, Simcoe, Ontario", "Simcoe And District"], 
+    #     ["Sudbury, Ontario", "Sudbury"],
+    #     ["Tillsonburg, Ontario", "Tillsonburg District"] ,
+    #     ["Windsor, Ontario", "Windsor Essex"] ,
+    #     ["Woodstock, Ontario", "Woodstock Ingersoll"]
+    # ]
 
     # location_array = []
     # for l in locations:
