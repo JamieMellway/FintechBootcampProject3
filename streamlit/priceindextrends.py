@@ -9,10 +9,16 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 import holoviews as hv
 hv.extension('bokeh', logo=False)
 import streamlit as st
+import requests
+from io import StringIO
 
 def render_page():
     #Import Federal and Provincial Data
-    ontario_df = pd.read_csv('https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/ONTARIO.csv')
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/ONTARIO.csv'  
+    response = requests.get(url)
+    data = StringIO(response.text)
+    ontario_df = pd.read_csv(data)
+
     #Set date as index 
     ontario_df = ontario_df.set_index("Date")
 
