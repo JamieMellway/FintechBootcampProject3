@@ -9,7 +9,7 @@ warnings.filterwarnings(action='ignore')
 
 def render_page():
     #Import data
-    ontario_dataset = pd.read_csv(Path("../Resources/ONTARIO.csv")).dropna()
+    ontario_dataset = pd.read_csv(Path("Resources/ONTARIO.csv")).dropna()
     #Rename column to match with MCForecastTools library
     ontario_dataset.rename(columns = {'Composite_Benchmark_SA':'close'}, inplace = True)
     #Drop unneeded columns

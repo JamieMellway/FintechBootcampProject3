@@ -25,7 +25,7 @@ from StreamlitCallback import StreamlitCallback
 
 def render_page():
     if st.button("Run Analysis"):
-        all_values = pd.read_csv(Path("../Resources/all_values_superset.csv"))
+        all_values = pd.read_csv(Path("Resources/all_values_superset.csv"))
         all_values['date'] = pd.to_datetime(all_values['date'], format='%Y-%m')
         all_values.set_index('date', inplace=True)
         all_values.drop(columns=['All-items 8', 'All-items excluding food', 'All-items excluding food and energy'], inplace=True)
@@ -237,11 +237,11 @@ def render_page():
 
         nn_json = nn.to_json()
 
-        #file_path = ("../Models/model3.json")
+        #file_path = ("Models/model3.json")
         #with open(file_path, "w") as json_file:
         #    json_file.write(nn_json)
 
-        #file_path = "../Models/model3.h5"
+        #file_path = "Models/model3.h5"
         #nn.save_weights(file_path)
 
         def mean_absolute_percentage_error(y_true, y_pred): 
@@ -276,4 +276,4 @@ def render_page():
         st.markdown(f"# Evaluation Metrics")
         st.text(f"Mean Absolute Error: {mae}\nMean Absolute Percentage Error: {mape}\nMean Squared Error: {mse}\nRoot Mean Squared Error: {rmse}")
 
-        #all_preds_descaled_df.to_csv('../Resources/total_chart_regional_save.csv', index=True)
+        #all_preds_descaled_df.to_csv('Resources/total_chart_regional_save.csv', index=True)

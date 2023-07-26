@@ -12,7 +12,7 @@ def get_data_by_region_bldg_date(data, region, bldg, date=None):
     return feature
 
 def render_page():
-    total_chart = pd.read_csv(Path("../Resources/total_chart_regional_save.csv"))
+    total_chart = pd.read_csv(Path("Resources/total_chart_regional_save.csv"))
     total_chart = total_chart.set_index('date')
 
     locations = ["Bancroft and Area", "Barrie And District", "Brantford Region", "Cambridge", "Greater Toronto", "Grey Bruce Owen Sound", "Guelph And District", "Hamilton Burlington", "Huron Perth", "Kawartha Lakes", "Kingston And Area", "Kitchener Waterloo", "Lakelands", "London St Thomas", "Mississauga", "Niagara Region", "Northumberland Hills", "North Bay", "Oakville Milton", "Ottawa", "Peterborough And Kawarthas", "Quinte And District", "Rideau St Lawrence", "Sault Ste Marie", "Simcoe And District", "Sudbury", "Tillsonburg District" , "Windsor Essex" , "Woodstock Ingersoll"]
