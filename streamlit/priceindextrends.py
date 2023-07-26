@@ -12,7 +12,7 @@ import streamlit as st
 
 def render_page():
     #Import Federal and Provincial Data
-    ontario_df = pd.read_csv(Path("streamlit/Resources/ONTARIO.csv"))
+    ontario_df = pd.read_csv(Path("ONTARIO.csv"))
     #Set date as index 
     ontario_df = ontario_df.set_index("Date")
 
