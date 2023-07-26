@@ -7,12 +7,26 @@ import hvplot.pandas
 from bokeh.models.formatters import NumeralTickFormatter
 import holoviews as hv
 hv.extension('bokeh', logo=False)
+import requests
+from io import StringIO
 
+def load_csv(name):
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
+    response = requests.get(url)
+    data = StringIO(response.text)
+    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
+
+def load_csv_with_Dates(name):
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
+    response = requests.get(url)
+    data = StringIO(response.text)
+    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
 
 def import_region_data(path):
     file = Path(path)
     region_name = file.name.split('.')[0]
-    region_data_df = pd.read_csv(file, infer_datetime_format=True, parse_dates=True, index_col='Date')
+    #region_data_df = pd.read_csv(file, infer_datetime_format=True, parse_dates=True, index_col='Date')
+    region_data_df = load_csv_with_Dates(path)
     region_data_df.index = region_data_df.index.strftime('%Y-%m')
     # region_data_df['Region'] = region_name
     region_cols = region_data_df.columns.tolist()
@@ -32,36 +46,36 @@ def render_page():
 
     st.header("Training Data (CREA)")
 
-    ontario_df = import_region_data('Resources/ONTARIO.csv')
-    bancroft_df = import_region_data('Resources/BANCROFT_AND_AREA.csv')
-    barrie_df = import_region_data('Resources/BARRIE_AND_DISTRICT.csv')
-    brantford_df = import_region_data('Resources/BRANTFORD_REGION.csv')
-    cambridge_df = import_region_data('Resources/CAMBRIDGE.csv')
-    toronto_df = import_region_data('Resources/GREATER_TORONTO.csv')
-    grey_bruce_owen_sound_df = import_region_data('Resources/GREY_BRUCE_OWEN_SOUND.csv')
-    guelph_df = import_region_data('Resources/GUELPH_AND_DISTRICT.csv')
-    hamilton_burlington_df = import_region_data('Resources/HAMILTON_BURLINGTON.csv')
-    huron_perth_df = import_region_data('Resources/HURON_PERTH.csv')
-    kawartha_df = import_region_data('Resources/KAWARTHA_LAKES.csv')
-    kingston_df = import_region_data('Resources/KINGSTON_AND_AREA.csv')
-    kitchener_waterloo_df = import_region_data('Resources/KITCHENER_WATERLOO.csv')
-    lakelands_df = import_region_data('Resources/LAKELANDS.csv')
-    london_st_thomas_df = import_region_data('Resources/LONDON_ST_THOMAS.csv')
-    mississauga_df = import_region_data('Resources/MISSISSAUGA.csv')
-    niagara_df = import_region_data('Resources/NIAGARA_REGION.csv')
-    northbay_df = import_region_data('Resources/NORTH_BAY.csv')
-    northumberland_df = import_region_data('Resources/NORTHUMBERLAND_HILLS.csv')
-    oakville_milton_df = import_region_data('Resources/OAKVILLE_MILTON.csv')
-    ottawa_df = import_region_data('Resources/OTTAWA.csv')
-    peterborough_kawarthas_df = import_region_data('Resources/PETERBOROUGH_AND_KAWARTHAS.csv')
-    quinte_df = import_region_data('Resources/QUINTE_AND_DISTRICT.csv')
-    rideau_df = import_region_data('Resources/RIDEAU_ST_LAWRENCE.csv')
-    ss_marie_df = import_region_data('Resources/SAULT_STE_MARIE.csv')
-    simcoe_df = import_region_data('Resources/SIMCOE_AND_DISTRICT.csv')
-    sudbury_df = import_region_data('Resources/SUDBURY.csv')
-    tillsonburg_df = import_region_data('Resources/TILLSONBURG_DISTRICT.csv')
-    windsor_df = import_region_data('Resources/WINDSOR_ESSEX.csv')
-    woodstock_df = import_region_data('Resources/WOODSTOCK_INGERSOLL.csv')
+    ontario_df = import_region_data('ONTARIO.csv')
+    bancroft_df = import_region_data('BANCROFT_AND_AREA.csv')
+    barrie_df = import_region_data('BARRIE_AND_DISTRICT.csv')
+    brantford_df = import_region_data('BRANTFORD_REGION.csv')
+    cambridge_df = import_region_data('CAMBRIDGE.csv')
+    toronto_df = import_region_data('GREATER_TORONTO.csv')
+    grey_bruce_owen_sound_df = import_region_data('GREY_BRUCE_OWEN_SOUND.csv')
+    guelph_df = import_region_data('GUELPH_AND_DISTRICT.csv')
+    hamilton_burlington_df = import_region_data('HAMILTON_BURLINGTON.csv')
+    huron_perth_df = import_region_data('HURON_PERTH.csv')
+    kawartha_df = import_region_data('KAWARTHA_LAKES.csv')
+    kingston_df = import_region_data('KINGSTON_AND_AREA.csv')
+    kitchener_waterloo_df = import_region_data('KITCHENER_WATERLOO.csv')
+    lakelands_df = import_region_data('LAKELANDS.csv')
+    london_st_thomas_df = import_region_data('LONDON_ST_THOMAS.csv')
+    mississauga_df = import_region_data('MISSISSAUGA.csv')
+    niagara_df = import_region_data('NIAGARA_REGION.csv')
+    northbay_df = import_region_data('NORTH_BAY.csv')
+    northumberland_df = import_region_data('NORTHUMBERLAND_HILLS.csv')
+    oakville_milton_df = import_region_data('OAKVILLE_MILTON.csv')
+    ottawa_df = import_region_data('OTTAWA.csv')
+    peterborough_kawarthas_df = import_region_data('PETERBOROUGH_AND_KAWARTHAS.csv')
+    quinte_df = import_region_data('QUINTE_AND_DISTRICT.csv')
+    rideau_df = import_region_data('RIDEAU_ST_LAWRENCE.csv')
+    ss_marie_df = import_region_data('SAULT_STE_MARIE.csv')
+    simcoe_df = import_region_data('SIMCOE_AND_DISTRICT.csv')
+    sudbury_df = import_region_data('SUDBURY.csv')
+    tillsonburg_df = import_region_data('TILLSONBURG_DISTRICT.csv')
+    windsor_df = import_region_data('WINDSOR_ESSEX.csv')
+    woodstock_df = import_region_data('WOODSTOCK_INGERSOLL.csv')
 
     all_regions = [bancroft_df, barrie_df, brantford_df, cambridge_df, toronto_df, grey_bruce_owen_sound_df, guelph_df, hamilton_burlington_df, huron_perth_df, kawartha_df, kingston_df, kitchener_waterloo_df,
                lakelands_df, london_st_thomas_df, mississauga_df, niagara_df, northbay_df, northumberland_df, oakville_milton_df, ontario_df, ottawa_df, peterborough_kawarthas_df, quinte_df, rideau_df,
@@ -100,7 +114,7 @@ def render_page():
 
     st.header("Sources of data")
 
-    lumber_df = pd.read_csv(Path("Resources/lumber-prices-historical-chart-data.csv"))
+    lumber_df = load_csv("lumber-prices-historical-chart-data.csv")
     lumber_df['date'] = pd.to_datetime(lumber_df['date'])
     lumber_df.set_index('date', inplace=True)
     lumber_grouped_df = lumber_df.groupby(pd.Grouper(freq="M")).max()
@@ -132,7 +146,7 @@ def render_page():
     st.write(hv.render(lumber_plot, backend='bokeh'))
     st.write("Source: https://www.macrotrends.net/2637/lumber-prices-historical-chart-data")
 
-    wood_df = pd.read_csv(Path("Resources/WOOD.csv"))
+    wood_df = load_csv('WOOD.csv')
     wood_df['Date'] = pd.to_datetime(wood_df['Date'])
     wood_df.set_index('Date', inplace=True)
     wood_grouped_df = wood_df.groupby(pd.Grouper(freq="M")).max()
@@ -163,7 +177,7 @@ def render_page():
     st.write(hv.render(wood_plot, backend='bokeh'))
     st.write("Source: https://finance.yahoo.com/quote/ITB/history?p=WOOD")
 
-    xhb_df = pd.read_csv(Path("Resources/XHB.csv"))
+    xhb_df = load_csv('XHB.csv')
     xhb_df['Date'] = pd.to_datetime(xhb_df['Date'])
     xhb_df.set_index('Date', inplace=True)
     xhb_grouped_df = xhb_df.groupby(pd.Grouper(freq="M")).max()
@@ -194,7 +208,7 @@ def render_page():
     st.write(hv.render(xhb_plot, backend='bokeh'))
     st.write("Source: https://finance.yahoo.com/quote/ITB/history?p=XHB")
 
-    itb_df = pd.read_csv(Path("Resources/ITB.csv"))
+    itb_df = load_csv('ITB.csv')
     itb_df['Date'] = pd.to_datetime(itb_df['Date'])
     itb_df.set_index('Date', inplace=True)
     itb_grouped_df = itb_df.groupby(pd.Grouper(freq="M")).max()
@@ -227,7 +241,7 @@ def render_page():
 
     #pd.read_csv(Path("Resources/1810000601-noSymbol.csv")).T.to_csv('Resources/consumerpriceindex_formatted_t.csv', header=False)
     column_header = 'Products and product groups 7'
-    cpi_df = pd.read_csv(Path("Resources/consumerpriceindex_formatted_t.csv"))
+    cpi_df = load_csv('consumerpriceindex_formatted_t.csv')
     cpi_df[column_header] = pd.to_datetime(cpi_df[column_header], format='%b-%y')
     cpi_df.set_index(column_header, inplace=True)
     cpi_df.index = cpi_df.index.strftime('%Y-%m')
@@ -256,7 +270,7 @@ def render_page():
     st.write(hv.render(cpi_plot, backend='bokeh'))
     st.write("Source: https://www150.statcan.gc.ca/")
 
-    ir = pd.read_csv(Path("Resources/bankrate.csv"))
+    ir = load_csv('bankrate.csv')
     ir['Rates'] = pd.to_datetime(ir['Rates'], format='%b-%y')
     ir.set_index('Rates', inplace=True)
     ir.index = ir.index.strftime('%Y-%m')

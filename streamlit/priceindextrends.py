@@ -12,12 +12,15 @@ import streamlit as st
 import requests
 from io import StringIO
 
-def render_page():
-    #Import Federal and Provincial Data
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/ONTARIO.csv'  
+def load_csv(name):
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
     response = requests.get(url)
     data = StringIO(response.text)
-    ontario_df = pd.read_csv(data)
+    return pd.read_csv(data)
+
+def render_page():
+    #Import Federal and Provincial Data
+    ontario_df = load_csv('ONTARIO.csv')
 
     #Set date as index 
     ontario_df = ontario_df.set_index("Date")

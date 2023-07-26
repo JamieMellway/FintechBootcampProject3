@@ -6,10 +6,18 @@ from pathlib import Path
 from MCForecastTools import MCSimulation
 import warnings
 warnings.filterwarnings(action='ignore')
+import requests
+from io import StringIO
+
+def load_csv(name):
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
+    response = requests.get(url)
+    data = StringIO(response.text)
+    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
 
 def render_page():
     #Import data
-    ontario_dataset = pd.read_csv(Path("Resources/ONTARIO.csv")).dropna()
+    ontario_dataset = load_csv("ONTARIO.csv").dropna()
     #Rename column to match with MCForecastTools library
     ontario_dataset.rename(columns = {'Composite_Benchmark_SA':'close'}, inplace = True)
     #Drop unneeded columns

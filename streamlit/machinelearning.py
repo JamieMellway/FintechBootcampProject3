@@ -22,10 +22,18 @@ import holoviews as hv
 hv.extension('bokeh', logo=False)
 from KerasCustomCallback import KerasCustomCallback
 from StreamlitCallback import StreamlitCallback
+import requests
+from io import StringIO
+
+def load_csv(name):
+    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
+    response = requests.get(url)
+    data = StringIO(response.text)
+    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
 
 def render_page():
     if st.button("Run Analysis"):
-        all_values = pd.read_csv(Path("Resources/all_values_superset.csv"))
+        all_values = load_csv("all_values_superset.csv"))
         all_values['date'] = pd.to_datetime(all_values['date'], format='%Y-%m')
         all_values.set_index('date', inplace=True)
         all_values.drop(columns=['All-items 8', 'All-items excluding food', 'All-items excluding food and energy'], inplace=True)
