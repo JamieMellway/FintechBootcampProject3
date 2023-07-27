@@ -7,7 +7,7 @@ import montecarlo
 import dataload
 import machinelearning
 import chatbot
-import unittest
+#import unittest
 
 def main():
     app = MultiApp()
@@ -19,7 +19,7 @@ def main():
     app.add_app("Machine Learning - Data Load", dataload.render_page)
     app.add_app("Machine Learning", machinelearning.render_page)
     app.add_app("Property Value", chatbot.render_page)
-    app.add_app("Unit Tests", unittest.render_page)
+    #app.add_app("Unit Tests", unittest.render_page)
     
     # The main app
     app.run()
