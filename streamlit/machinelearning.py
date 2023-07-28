@@ -24,9 +24,28 @@ hv.extension('bokeh', logo=False)
 from StreamlitCallback import StreamlitCallback
 from utils.Load_CSV import load_csv
 
+plot_height = 600
+plot_width = 1200
+
+@st.cache(allow_output_mutation=True)
+def show_X(X):
+    return X.hvplot(
+            height=plot_height,
+            width=plot_width,
+            legend=False
+        )
+
+@st.cache(allow_output_mutation=True)
+def show_y(y):
+    return y.hvplot(
+            height=plot_height,
+            width=plot_width,
+            legend=False
+        )
+
 def render_page():
     if st.button("Run Analysis"):
-        all_values = load_csv("all_values_superset.csv")
+        all_values = load_csv("all_values_superset.csv").copy(deep=True)
         all_values['date'] = pd.to_datetime(all_values['date'], format='%Y-%m')
         all_values.set_index('date', inplace=True)
         all_values.drop(columns=['All-items 8', 'All-items excluding food', 'All-items excluding food and energy'], inplace=True)
@@ -60,23 +79,12 @@ def render_page():
         # )
         # st.write(hv.render(all_values_plot, backend='bokeh'))
 
-        plot_height = 600
-        plot_width = 1200
-
         st.markdown(f"# X Values (Scaled)")
-        X_values_plot = X.hvplot(
-            height=plot_height,
-            width=plot_width,
-            legend=False
-        )
+        X_values_plot = show_X(X)
         st.write(hv.render(X_values_plot, backend='bokeh'))
 
         st.markdown(f"# y Values (Scaled)")
-        y_values_plot = y.hvplot(
-            height=plot_height,
-            width=plot_width,
-            legend=False
-        )
+        y_values_plot = show_y(y)
         st.write(hv.render(y_values_plot, backend='bokeh'))
 
         #if st.button("Run Analysis"):

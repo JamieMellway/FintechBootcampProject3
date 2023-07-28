@@ -27,6 +27,8 @@ def render_page():
 
     years = st.number_input("Years", min_value=1, max_value=10, value =2, step=1)
 
+    num_simulations = st.number_input("Number of Simulations", min_value=1, max_value=1000, value =500, step=1)
+
     initial_investment = st.number_input("Initial Investment", min_value=1, max_value=100000000, value =1000000, step=1)
 
     if st.button("Generate Chart"):
@@ -34,8 +36,8 @@ def render_page():
         MC_10_year = MCSimulation(
             portfolio_data = concat, 
             weights =[1], 
-            num_simulation = 500, 
-            num_trading_days=12* years
+            num_simulation = num_simulations, 
+            num_trading_days= 252 * years
         )
         #Run the Monte Carlo simulation
         MC_10_year.calc_cumulative_return()

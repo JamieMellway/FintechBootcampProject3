@@ -1,4 +1,5 @@
 # Import the required libraries and dependencies
+from distutils.command import build
 import pandas as pd
 from pathlib import Path
 import hvplot.pandas
@@ -10,6 +11,26 @@ import holoviews as hv
 hv.extension('bokeh', logo=False)
 import streamlit as st
 from utils.Load_CSV import load_csv
+
+#@st.cache(allow_output_mutation=True, hash_funcs={"_hvplot_pandas.plotting.Plot": lambda x: None})
+def show_graph(ontario_df, building_types_selected):
+    plot = ontario_df.dropna().loc[:, building_types_selected].hvplot.line(
+        label="Ontario Benchmarks 2005-2023",
+        xlabel="Date",
+        ylabel="Composite Benchmark SA",
+        rot=90,
+        width=1400,
+        height=500
+    ).opts(
+        yformatter=NumeralTickFormatter(format="0,0"),
+        fontsize={
+            'title': 20,
+            'labels': 14,
+            'xticks': 5,
+            'yticks': 10,
+        }
+    )
+    return plot
 
 def render_page():
     #Import Federal and Provincial Data
@@ -28,26 +49,9 @@ def render_page():
 
     if st.button("Generate Chart"):
         if building_types_selected:
-            #Show graph with Benchmark prices
+    #Show graph with Benchmark prices
             st.write("# Canadian Real Estate Association (CREA) MLS® Home Price Index (HPI) Benchmarks Seasonally Adjusted")
-            graph3 = ontario_df.dropna().loc[:, building_types_selected].hvplot.line(
-                label="Ontario Benchmarks 2005-2023",
-                xlabel="Date",
-                ylabel="Composite Benchmark SA",
-                rot=90,
-                width=1400,
-                height = 500
-            ).opts(
-                yformatter=NumeralTickFormatter(format="0,0"),
-                fontsize={
-                    'title': 20, 
-                    'labels': 14, 
-                    'xticks': 5, 
-                    'yticks': 10,
-                }
-            )
+            graph3 = show_graph(ontario_df, building_types_selected)
             st.write(hv.render(graph3, backend='bokeh'))
 
-            st.write("Source: https://creastats.crea.ca/en-CA/")
-
-    
+            st.write("Source: https://creastats.crea.ca/en-CA/")        

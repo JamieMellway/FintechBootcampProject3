@@ -10,11 +10,36 @@ hv.extension('bokeh', logo=False)
 from utils.Load_CSV import load_csv
 from utils.Load_CSV import load_csv_with_Dates
 
+small_date_fontsize = {
+            'title': 20, 
+            'labels': 14, 
+            'xticks': 5, 
+            'yticks': 10,
+        }
+plot_height = 600
+plot_width = 1200
+
+def graph_all_regions(all_regions_df):
+    plot = all_regions_df.hvplot.line(
+        x='Date', 
+        xlabel='Date', 
+        ylabel='Price Index', 
+        title='Benchmarks (All Ontario Regions)',
+        rot=90,
+        height=plot_height,
+        width=plot_width,
+        legend=False
+    ).opts(
+        fontsize=small_date_fontsize,
+        yformatter=NumeralTickFormatter(format="0,0")
+    )
+    return plot
+
 def import_region_data(path):
     file = Path(path)
     region_name = file.name.split('.')[0]
     #region_data_df = pd.read_csv(file, infer_datetime_format=True, parse_dates=True, index_col='Date')
-    region_data_df = load_csv_with_Dates(path)
+    region_data_df = load_csv_with_Dates(path).copy()
     region_data_df.index = region_data_df.index.strftime('%Y-%m')
     # region_data_df['Region'] = region_name
     region_cols = region_data_df.columns.tolist()
@@ -76,29 +101,8 @@ def render_page():
 
     all_regions_df.drop_duplicates(inplace=True)
     all_regions_df.dropna()
-
-    small_date_fontsize = {
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        }
-    plot_height = 600
-    plot_width = 1200
     
-    benchmark_plot = all_regions_df.hvplot.line(
-        x='Date', 
-        xlabel='Date', 
-        ylabel='Price Index', 
-        title='Benchmarks (All Ontario Regions)',
-        rot=90,
-        height=plot_height,
-        width=plot_width,
-        legend=False
-    ).opts(
-        fontsize=small_date_fontsize,
-        yformatter=NumeralTickFormatter(format="0,0")
-    )
+    benchmark_plot = graph_all_regions(all_regions_df)
     #benchmark_plot
 
     st.write(hv.render(benchmark_plot, backend='bokeh'))
@@ -106,7 +110,7 @@ def render_page():
 
     st.header("Sources of data")
 
-    lumber_df = load_csv("lumber-prices-historical-chart-data.csv")
+    lumber_df = load_csv("lumber-prices-historical-chart-data.csv").copy(deep=True)
     lumber_df['date'] = pd.to_datetime(lumber_df['date'])
     lumber_df.set_index('date', inplace=True)
     lumber_grouped_df = lumber_df.groupby(pd.Grouper(freq="M")).max()
@@ -133,7 +137,7 @@ def render_page():
     st.write(hv.render(lumber_plot, backend='bokeh'))
     st.write("Source: https://www.macrotrends.net/2637/lumber-prices-historical-chart-data")
 
-    wood_df = load_csv('WOOD.csv')
+    wood_df = load_csv('WOOD.csv').copy()
     wood_df['Date'] = pd.to_datetime(wood_df['Date'])
     wood_df.set_index('Date', inplace=True)
     wood_grouped_df = wood_df.groupby(pd.Grouper(freq="M")).max()
@@ -159,7 +163,7 @@ def render_page():
     st.write(hv.render(wood_plot, backend='bokeh'))
     st.write("Source: https://finance.yahoo.com/quote/ITB/history?p=WOOD")
 
-    xhb_df = load_csv('XHB.csv')
+    xhb_df = load_csv('XHB.csv').copy()
     xhb_df['Date'] = pd.to_datetime(xhb_df['Date'])
     xhb_df.set_index('Date', inplace=True)
     xhb_grouped_df = xhb_df.groupby(pd.Grouper(freq="M")).max()
@@ -185,7 +189,7 @@ def render_page():
     st.write(hv.render(xhb_plot, backend='bokeh'))
     st.write("Source: https://finance.yahoo.com/quote/ITB/history?p=XHB")
 
-    itb_df = load_csv('ITB.csv')
+    itb_df = load_csv('ITB.csv').copy()
     itb_df['Date'] = pd.to_datetime(itb_df['Date'])
     itb_df.set_index('Date', inplace=True)
     itb_grouped_df = itb_df.groupby(pd.Grouper(freq="M")).max()
@@ -213,7 +217,7 @@ def render_page():
 
     #pd.read_csv(Path("Resources/1810000601-noSymbol.csv")).T.to_csv('Resources/consumerpriceindex_formatted_t.csv', header=False)
     column_header = 'Products and product groups 7'
-    cpi_df = load_csv('consumerpriceindex_formatted_t.csv')
+    cpi_df = load_csv('consumerpriceindex_formatted_t.csv').copy()
     cpi_df[column_header] = pd.to_datetime(cpi_df[column_header], format='%b-%y')
     cpi_df.set_index(column_header, inplace=True)
     cpi_df.index = cpi_df.index.strftime('%Y-%m')
@@ -238,7 +242,7 @@ def render_page():
     st.write(hv.render(cpi_plot, backend='bokeh'))
     st.write("Source: https://www150.statcan.gc.ca/")
 
-    ir = load_csv('bankrate.csv')
+    ir = load_csv('bankrate.csv').copy()
     ir['Rates'] = pd.to_datetime(ir['Rates'], format='%b-%y')
     ir.set_index('Rates', inplace=True)
     ir.index = ir.index.strftime('%Y-%m')
@@ -295,19 +299,19 @@ def render_page():
 
     #st.write(ir["Bank rate"])
 
-    most_values = pd.concat([all_regions_df, lumber_grouped_df, wood_grouped_df["Close"], xhb_grouped_df["Close"], itb_grouped_df["Close"], ir["Bank rate"]], axis = 1, join = 'inner')
-    cols = all_regions_df.columns.tolist()
-    cols.extend(['Lumber', 'Wood', 'XHB', 'ITB', "Bank rate"])
-    most_values.columns = cols
+    #most_values = pd.concat([all_regions_df, lumber_grouped_df, wood_grouped_df["Close"], xhb_grouped_df["Close"], itb_grouped_df["Close"], ir["Bank rate"]], axis = 1, join = 'inner')
+    #cols = all_regions_df.columns.tolist()
+    #cols.extend(['Lumber', 'Wood', 'XHB', 'ITB', "Bank rate"])
+    #most_values.columns = cols
     
     #st.write("Most Values")
     #st.write(most_values)
 
-    all_values = pd.concat([most_values, cpi_df], axis =1 , join = 'inner')
+    #all_values = pd.concat([most_values, cpi_df], axis =1 , join = 'inner')
 
-    all_values
+    #all_values
 
-    all_values.index.name = 'date'
+    #all_values.index.name = 'date'
 
     #st.write("All Values")
     #st.write(all_values)

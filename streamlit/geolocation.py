@@ -12,6 +12,25 @@ import holoviews as hv
 hv.extension('bokeh', logo=False)
 from utils.Load_CSV import load_csv
 
+@st.cache(allow_output_mutation=True)
+def show_graph(all_regions_with_coords):
+    return all_regions_with_coords.hvplot.points(
+        'Long', 
+        'Lat', 
+        geo=True, 
+        size = 'Composite_Benchmark_SA',
+        scale = 0.02,
+        color='Region',
+        alpha=0.8,
+        tiles='OSM',
+        frame_width = 1000,
+        frame_height = 700,
+        hover_cols='all',
+        title='Ontario Benchmark by Region June 2023',
+        xlabel='Longitude',
+        ylabel='Latitude'
+        )
+
 def render_page():
    #Import Regional Data
     region01 = load_csv('BANCROFT_AND_AREA.csv')
@@ -163,22 +182,7 @@ def render_page():
     all_regions_with_coords
 
     #Plot most recent regional data on Ontario map
-    map_plot = all_regions_with_coords.hvplot.points(
-        'Long', 
-        'Lat', 
-        geo=True, 
-        size = 'Composite_Benchmark_SA',
-        scale = 0.02,
-        color='Region',
-        alpha=0.8,
-        tiles='OSM',
-        frame_width = 1000,
-        frame_height = 700,
-        hover_cols='all',
-        title='Ontario Benchmark by Region June 2023',
-        xlabel='Longitude',
-        ylabel='Latitude'
-        )
+    map_plot = show_graph(all_regions_with_coords)
 
     map_plot
     st.write(hv.render(map_plot, backend='bokeh'))
