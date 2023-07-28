@@ -1,26 +1,14 @@
 # importing libraries
 import streamlit as st
-import numpy as np
+#import numpy as np
 import pandas as pd
 from pathlib import Path
 import hvplot.pandas
 from bokeh.models.formatters import NumeralTickFormatter
 import holoviews as hv
 hv.extension('bokeh', logo=False)
-import requests
-from io import StringIO
-
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
-
-def load_csv_with_Dates(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data, infer_datetime_format=True, parse_dates=True, index_col='Date')
+from utils.Load_CSV import load_csv
+from utils.Load_CSV import load_csv_with_Dates
 
 def import_region_data(path):
     file = Path(path)
@@ -89,22 +77,26 @@ def render_page():
     all_regions_df.drop_duplicates(inplace=True)
     all_regions_df.dropna()
 
+    small_date_fontsize = {
+            'title': 20, 
+            'labels': 14, 
+            'xticks': 5, 
+            'yticks': 10,
+        }
+    plot_height = 600
+    plot_width = 1200
+    
     benchmark_plot = all_regions_df.hvplot.line(
         x='Date', 
         xlabel='Date', 
         ylabel='Price Index', 
         title='Benchmarks (All Ontario Regions)',
         rot=90,
-        height=400,
-        width=1000,
+        height=plot_height,
+        width=plot_width,
         legend=False
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     #benchmark_plot
@@ -131,15 +123,10 @@ def render_page():
         title='Macrotrends Lumber Prices - 50 Year Historical Chart',
         line_color='blue',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     lumber_plot
@@ -162,15 +149,10 @@ def render_page():
         title='iShares Global Timber & Forestry ETF',
         line_color='blue',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     wood_plot
@@ -193,15 +175,10 @@ def render_page():
         title='SPDR S&P Homebuilders ETF',
         line_color='blue',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     xhb_plot
@@ -224,15 +201,10 @@ def render_page():
         title='iShares U.S. Home Construction ETF',
         line_color='blue',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     itb_plot
@@ -255,15 +227,11 @@ def render_page():
         ylabel='Price', 
         title='Consumer Price Index',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width,
+        legend=False
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     cpi_plot
@@ -283,15 +251,10 @@ def render_page():
         title='Bank Rate',
         line_color='blue',
         rot=90,
-        height=400,
-        width=1000
+        height=plot_height,
+        width=plot_width
     ).opts(
-        fontsize={
-            'title': 20, 
-            'labels': 14, 
-            'xticks': 5, 
-            'yticks': 10,
-        },
+        fontsize=small_date_fontsize,
         yformatter=NumeralTickFormatter(format="0,0")
     )
     ir_plot
@@ -320,15 +283,10 @@ def render_page():
     #     title='Bank Rate',
     #     line_color='blue',
     #     rot=90,
-    #     height=400,
-    #     width=1000
+    #     height=plot_height,
+    #     width=plot_width
     # ).opts(
-    #     fontsize={
-    #         'title': 20, 
-    #         'labels': 14, 
-    #         'xticks': 5, 
-    #         'yticks': 10,
-    #     },
+    #     fontsize=small_date_fontsize,
     #     yformatter=NumeralTickFormatter(format="0,0")
     # )
     # ir_plot

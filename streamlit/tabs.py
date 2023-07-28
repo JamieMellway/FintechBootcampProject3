@@ -1,6 +1,6 @@
 import streamlit as st
 st.set_page_config(layout="wide")
-from MultiApp import MultiApp
+#from MultiApp import MultiApp
 import PriceIndexTrends 
 import Geolocation
 #import MonteCarlo

@@ -1,17 +1,10 @@
 import streamlit as st
-import pandas as pd
-from pathlib import Path
-import csv
-import requests
-from io import StringIO
+#import pandas as pd
+#from pathlib import Path
+#import csv
+from utils.Load_CSV import load_csv
 
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
-
-def get_data_by_region_bldg_date(data, region, bldg, date=None):
+def get_data_by_region_bldg_date(region, bldg):
     new_bldg = bldg.replace(' ', '_')
     new_region = region.upper().replace(' ', '_')
 
@@ -32,12 +25,12 @@ def render_page():
     building_types_selected = st.selectbox("Building Type", building_types)
     date_selected = st.selectbox("Date", sorted_dates)
 
-    if st.button("Generate Chart"):
-        if building_types_selected and locations_selected:
-            selection = get_data_by_region_bldg_date(total_chart, locations_selected, building_types_selected)
-            try:
-                chart = total_chart[selection]
-                value = round(chart.loc[date_selected],2)
-                st.write(f"The price of a {building_types_selected} in {locations_selected} is \${value:,.2f}")
-            except:
-                st.write(f"Information on a {building_types_selected} is not available in {locations_selected}.")    
+    # if st.button("Generate Price"):
+    #     if building_types_selected and locations_selected:
+    selection = get_data_by_region_bldg_date(locations_selected, building_types_selected)
+    try:
+        chart = total_chart[selection]
+        value = round(chart.loc[date_selected],2)
+        st.write(f"The price of a {building_types_selected} in {locations_selected} is \${value:,.2f}")
+    except:
+        st.write(f"Information on a {building_types_selected} is not available in {locations_selected}.")    

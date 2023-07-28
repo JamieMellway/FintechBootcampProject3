@@ -12,24 +12,17 @@ from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.metrics import MeanSquaredError
-from pandas.tseries.offsets import DateOffset
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+#from pandas.tseries.offsets import DateOffset
+#from sklearn.cluster import KMeans
+#from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from bokeh.models.formatters import NumeralTickFormatter
 import holoviews as hv
 hv.extension('bokeh', logo=False)
-from KerasCustomCallback import KerasCustomCallback
+#from KerasCustomCallback import KerasCustomCallback
 from StreamlitCallback import StreamlitCallback
-import requests
-from io import StringIO
-
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
+from utils.Load_CSV import load_csv
 
 def render_page():
     if st.button("Run Analysis"):
@@ -67,17 +60,21 @@ def render_page():
         # )
         # st.write(hv.render(all_values_plot, backend='bokeh'))
 
+        plot_height = 600
+        plot_width = 1200
+
         st.markdown(f"# X Values (Scaled)")
         X_values_plot = X.hvplot(
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
+            legend=False
         )
         st.write(hv.render(X_values_plot, backend='bokeh'))
 
         st.markdown(f"# y Values (Scaled)")
         y_values_plot = y.hvplot(
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
             legend=False
         )
         st.write(hv.render(y_values_plot, backend='bokeh'))
@@ -185,8 +182,8 @@ def render_page():
         # Plot the loss
         val_loss_plot = model_df.hvplot(
             y="val_loss",
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
         )
         st.markdown(f"# Val Loss")
         st.write(hv.render(val_loss_plot, backend='bokeh'))
@@ -194,15 +191,15 @@ def render_page():
         # Plot the accuracy
         mean_squared_error_plot = model_df.hvplot(
             y="mean_squared_error",
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
         )
         st.markdown(f"# Mean Squared Error")
         st.write(hv.render(mean_squared_error_plot, backend='bokeh'))
 
         both_plot = model_df[['val_loss', 'mean_squared_error']].hvplot(
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
         )
         st.markdown(f"# Val Loss and Mean Squared Error")
         st.write(hv.render(both_plot, backend='bokeh'))
@@ -234,8 +231,8 @@ def render_page():
             xlabel='Date', 
             ylabel='Price', 
             title='Actual and Predicted Index',
-            height=500,
-            width=1200,
+            height=plot_height,
+            width=plot_width,
             legend=False    
         ).opts(
             yformatter=NumeralTickFormatter(format="0,0")

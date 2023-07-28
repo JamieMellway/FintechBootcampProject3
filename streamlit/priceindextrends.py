@@ -3,20 +3,13 @@ import pandas as pd
 from pathlib import Path
 import hvplot.pandas
 from bokeh.models.formatters import NumeralTickFormatter
-from bokeh.models.formatters import DatetimeTickFormatter
+#from bokeh.models.formatters import DatetimeTickFormatter
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 import holoviews as hv
 hv.extension('bokeh', logo=False)
 import streamlit as st
-import requests
-from io import StringIO
-
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
+from utils.Load_CSV import load_csv
 
 def render_page():
     #Import Federal and Provincial Data

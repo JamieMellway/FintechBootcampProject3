@@ -1,10 +1,10 @@
 # Import libraries and dependencies
 import numpy as np
 import pandas as pd
-import os
-import alpaca_trade_api as tradeapi
-import datetime as dt
-import pytz
+#import os
+#import alpaca_trade_api as tradeapi
+#import datetime as dt
+#import pytz
 
 class MCSimulation:
     """

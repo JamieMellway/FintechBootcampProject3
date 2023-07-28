@@ -1,19 +1,12 @@
 import streamlit as st
-import os
+#import os
 import pandas as pd
-import datetime as dt
-from pathlib import Path
+#import datetime as dt
+#from pathlib import Path
 from MCForecastTools import MCSimulation
 import warnings
 warnings.filterwarnings(action='ignore')
-import requests
-from io import StringIO
-
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
+from utils.Load_CSV import load_csv
 
 def render_page():
     #Import data

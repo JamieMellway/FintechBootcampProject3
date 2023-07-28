@@ -10,14 +10,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 import time
 import holoviews as hv
 hv.extension('bokeh', logo=False)
-import requests
-from io import StringIO
-
-def load_csv(name):
-    url = 'https://raw.githubusercontent.com/JamieMellway/FintechBootcampProject3/main/streamlit/Resources/' + name
-    response = requests.get(url)
-    data = StringIO(response.text)
-    return pd.read_csv(data)
+from utils.Load_CSV import load_csv
 
 def render_page():
    #Import Regional Data
