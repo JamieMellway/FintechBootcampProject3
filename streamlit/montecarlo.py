@@ -37,7 +37,7 @@ def render_page():
             portfolio_data = concat, 
             weights =[1], 
             num_simulation = num_simulations, 
-            num_trading_days= 252 * years
+            num_trading_days= 12 * years # Note: Our data is monthly not daily
         )
         #Run the Monte Carlo simulation
         MC_10_year.calc_cumulative_return()
