@@ -29,7 +29,7 @@ class MCSimulation:
         the 95% confidence intervals for simulated final cumulative returns
         
     """
-    @st.cache(max_entries = 10)
+    #@st.cache(max_entries = 10)
     def __init__(self, portfolio_data, weights="", num_simulation=1000, num_trading_days=252):
         """
         Constructs all the necessary attributes for the MCSimulation object.
