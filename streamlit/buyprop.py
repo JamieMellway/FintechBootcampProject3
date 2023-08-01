@@ -1,0 +1,124 @@
+import os
+import json
+from web3 import Web3
+from pathlib import Path
+from dotenv import load_dotenv
+import streamlit as st
+import pandas as pd
+import requests
+from geopy.geocoders import Nominatim
+import pydeck as pdk
+
+# Import the helper function from the pinata.py file
+from pinata import pin_file_to_ipfs, pin_json_to_ipfs, convert_data_to_json
+
+load_dotenv()
+
+# Define and connect a new Web3 provider
+w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
+
+################################################################################
+# Load_Contract Function
+################################################################################
+def render_page():
+
+    @st.cache_resource
+    def load_contract():
+
+        # Load the contract ABI
+        with open(Path('../solidity/contracts/compiled/propertyregistry_abi.json')) as f:
+            contract_abi = json.load(f)
+
+        # Set the contract address (this is the address of the deployed contract)
+        contract_address = os.getenv("SMART_CONTRACT_ADDRESS")
+
+        # Get the contract
+        contract = w3.eth.contract(
+            address=contract_address,
+            abi=contract_abi
+        )
+
+        return contract
+
+
+    # Load the contract
+    contract = load_contract()
+
+    ################################################################################
+    # Buy Property
+    ################################################################################
+    accounts = w3.eth.accounts
+    st.markdown("# Buy A Property")
+    tokens = contract.functions.totalSupply().call()
+    token_id = st.selectbox("Choose a property", list(range(tokens)))
+    buyer_wallet = st.selectbox("Choose your wallet address", options=accounts)
+    buy_receipt = ''
+    button_stat = True if token_id==None else False
+    prop_value = contract.functions.propCollection(token_id).call()[3]
+
+    if st.button("Buy", disabled=button_stat):
+        contract.functions.deposit().transact({'from':buyer_wallet,'value':prop_value})
+        prop_owner = contract.functions.ownerOf(token_id).call()
+        is_approved = contract.functions.approve(buyer_wallet, token_id).transact({'from':prop_owner})
+        if is_approved:
+            buy_hash = contract.functions.buyProperty(token_id).transact({'from':buyer_wallet})
+            buy_receipt = w3.eth.waitForTransactionReceipt(buy_hash)
+            st.write("Congratulations on your purchase!")
+    with st.expander("Show purchase receipt"):
+        st.write(dict(buy_receipt))
+#     new_appraisal_value = st.text_input("Enter the new appraisal amount")
+#     appraisal_report_content = st.text_area("Enter details for the Appraisal Report")
+
+#     if st.button("Appraise Artwork"):
+
+#         # Make a call to the contract to get the image uri
+#         image_uri = str(contract.functions.imageUri(token_id).call())
+
+#         # Use the `pin_appraisal_report` helper function to pin an appraisal report for the report URI
+#         appraisal_report_ipfs_hash = pin_appraisal_report(appraisal_report_content+image_uri)
+
+#         # Copy and save the URI to this report for later use as the smart contract’s `reportURI` parameter.
+#         report_uri = f"ipfs://{appraisal_report_ipfs_hash}"
+
+#         tx_hash = contract.functions.newAppraisal(
+#             token_id,
+#             int(new_appraisal_value),
+#             report_uri,
+#             image_uri
+
+#         ).transact({"from": w3.eth.accounts[0]})
+#         receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+#         with st.expander("Show appraisal receipt"):
+#             st.write(receipt)
+#     st.markdown("---")
+
+    ################################################################################
+    # Get Appraisals
+    ################################################################################
+    # st.markdown("## Get the appraisal report history")
+    # art_token_id = st.number_input("Artwork ID", value=0, step=1)
+    # if st.button("Get Appraisal Reports"):
+    #     appraisal_filter = contract.events.Appraisal.createFilter(
+    #         fromBlock=0, argument_filters={"tokenId": art_token_id}
+    #     )
+    #     reports = appraisal_filter.get_all_entries()
+    #     if reports:
+    #         for report in reports:
+    #             report_dictionary = dict(report)
+    #             st.markdown("### Appraisal Report Event Log")
+    #             st.write(report_dictionary)
+    #             st.markdown("### Pinata IPFS Report URI")
+    #             report_uri = report_dictionary["args"]["reportURI"]
+    #             report_ipfs_hash = report_uri[7:]
+    #             image_uri = report_dictionary["args"]["artJson"]
+    #             st.markdown(
+    #                 f"The report is located at the following URI: "
+    #                 f"{report_uri}"
+    #             )
+    #             st.write("You can also view the report URI with the following ipfs gateway link")
+    #             st.markdown(f"[IPFS Gateway Link](https://ipfs.io/ipfs/{report_ipfs_hash})")
+    #             st.markdown("### Appraisal Event Details")
+    #             st.write(report_dictionary["args"])
+    #             st.image(f'https://ipfs.io/ipfs/{image_uri}')
+    #     else:
+    #         st.write("This artwork has no new appraisals")
