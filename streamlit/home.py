@@ -7,10 +7,11 @@ import dataload
 import machinelearning
 import chatbot
 import platform
+import chatbotdemo
 if platform.system() == 'Windows':
     import geolocation
     import unittests
-    import chatbotdemo
+    
 
 def main():
     app = MultiApp()
