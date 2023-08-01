@@ -10,7 +10,9 @@ pip install altair==4.0
 pip install geopy
 pip install alpaca-trade-api
 pip install --force-reinstall --no-deps bokeh==2.4.1
+pip install boto3
+pip install streamlit-chat 
 
 cd streamlit
-python -m pip freeze > requirements.txt
+python -m pip freeze > requirements_output.txt
 # Edit requirements.txt to only be the above packages

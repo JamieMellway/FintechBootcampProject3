@@ -10,6 +10,7 @@ import platform
 if platform.system() == 'Windows':
     import geolocation
     import unittests
+    import chatbotdemo
 
 def main():
     app = MultiApp()
@@ -21,8 +22,9 @@ def main():
     app.add_app("Monte Carlo", montecarlo.render_page)
     app.add_app("Machine Learning - Data Load", dataload.render_page)
     app.add_app("Machine Learning", machinelearning.render_page)
-    app.add_app("Property Value", chatbot.render_page)
+    app.add_app("Chat Bot", chatbotdemo.render_page)
     if platform.system() == 'Windows':
+        app.add_app("Property Value", chatbot.render_page)
         app.add_app("Unit Tests", unittests.render_page)
     
     # The main app
