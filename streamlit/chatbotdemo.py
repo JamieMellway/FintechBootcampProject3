@@ -4,8 +4,8 @@ from streamlit_chat import message
 from streamlit.components.v1 import html
 
 # Amazon Lex credentials
-aws_access_key_id = 'AKIAQW65EVEK5LLAJAGD'
-aws_secret_access_key = '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'
+aws_access_key_id = ''
+aws_secret_access_key = ''
 region_name = 'us-west-2'
 
 # Create a client for Amazon Lex
