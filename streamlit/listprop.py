@@ -79,21 +79,14 @@ def render_page():
     user_first_name = st.text_input("First Name")
     user_last_name = st.text_input("Last Name")
     user_phone = st.number_input("Phone", max_value=9999999999, min_value=0, step=1)
-    st.write("Choose an account to get started")
     accounts = w3.eth.accounts
-    user_address = st.selectbox("Select Account", options=accounts)
-    st.markdown("---")
-
-    ################################################################################
-    # Register New Property
-    ################################################################################
-    st.markdown("## Add your property for sale")
+    user_address = st.selectbox("Wallet", options=accounts)
 
     geolocator = Nominatim(user_agent="streamlit_maps_geopy1")
     url = 'https://us1.locationiq.com/v1/search'
     prev_address = 'Toronto'
 
-    geo_address = st.text_input('Find Location', prev_address, autocomplete='street-address')
+    geo_address = st.text_input('Address', prev_address, autocomplete='street-address')
 
     if geo_address == '':
         geo_address = prev_address
@@ -159,7 +152,7 @@ def render_page():
     # Use the Streamlit `file_uploader` function create the type of digital image files (jpg, jpeg, or png) that will be uploaded to Pinata.
     file = st.file_uploader("Add a picture of your house", type=["jpg", "jpeg", "png"])
 
-    if st.button("Add Property"):
+    if st.button("List!"):
 
         # Use the `pin_artwork` helper function to pin the file to IPFS
         property_ipfs_hash, token_json = pin_property(address_found, user_first_name, user_last_name, user_phone, sell_price, file)

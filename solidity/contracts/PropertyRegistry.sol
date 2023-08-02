@@ -62,7 +62,10 @@ contract PropertyRegistry is ERC721Full, payForProperty {
         return tokenId;
     }
 
+    // When buying a property in ERC721, the token must be transfered to the buyer.
+    // The amount of currency to be exchanged must be done outside the ERC721 contract.
     function buyProperty(uint256 token_id) public {
+        // The buyer is the caller and we must ensure that the seller's address is payable
         address buyer_address = msg.sender;
         address payable seller_address = address(uint160(ownerOf(token_id)));
         uint256 amount = propCollection[token_id].appraisalValue;
@@ -71,6 +74,7 @@ contract PropertyRegistry is ERC721Full, payForProperty {
 
         sendPayment(seller_address, buyer_address, amount);
         safeTransferFrom(seller_address, buyer_address, token_id);
+        delete propCollection[token_id];
     }
 
     function newAppraisal(
