@@ -66,6 +66,9 @@ def render_page():
         props_df = pd.DataFrame(prop_collection).T
         selected_address = st.selectbox("Choose a property", props_df['geoAddress'])
         token_id = int(props_df.index[props_df['geoAddress'] == selected_address][0])
+        st.image("https://ipfs.io/ipfs/"+contract.functions.propCollection(token_id).call()[4], caption=selected_address, width=200)
+        st.write(f"Price (ETH): {round(contract.functions.propCollection(token_id).call()[3]/1e18)}")
+        st.write(f"Property Type: {contract.functions.propCollection(prop).call()[2]}")
     else:
         token_id = None
         st.write("Looks like there are no listed properties. Please try back again later.")

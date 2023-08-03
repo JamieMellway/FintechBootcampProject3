@@ -138,7 +138,7 @@ def render_page():
         # onViewStateChange
     )
     st.pydeck_chart(deck)
-    sell_price = st.text_input("How much would you like to sell for?")
+    sell_price = st.number_input("How much would you like to sell for (ETH)?")
     property_type = st.text_input("What type of property is this?")
 
     # Use the Streamlit `file_uploader` function create the type of digital image files (jpg, jpeg, or png) that will be uploaded to Pinata.
@@ -147,7 +147,7 @@ def render_page():
     if st.button("List!"):
 
         # Use the `pin_artwork` helper function to pin the file to IPFS
-        property_ipfs_hash, token_json = pin_property(address_found, user_first_name, user_last_name, user_phone, sell_price, file)
+        property_ipfs_hash, token_json = pin_property(address_found, user_first_name, user_last_name, user_phone, int(sell_price * 1e18), file)
 
         property_uri = f"ipfs://{property_ipfs_hash}"
 
