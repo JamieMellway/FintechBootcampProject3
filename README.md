@@ -141,6 +141,7 @@ See [InstallationNotes.txt](InstallationNotes.txt), [packages.txt](packages.txt)
 To run our demos us (from the streamlit folder):
 
 streamlit run home.py
+
 streamlit run home_buynsell.py
 
 ## Summary of the analysis
