@@ -131,8 +131,17 @@ The token contract inherits ERC721 as well as a custom contract for transfering 
 2. Fill in all the information.
 3. Click on 'Buy'
 
+## Public Website
+Our public website is https://ontariohousingmarketanalysis.streamlit.app/ and it contains some of our pages.
+
 ## Environment Setup
 See [InstallationNotes.txt](InstallationNotes.txt), [packages.txt](packages.txt), and [requirements.txt](streamlit/requirements.txt)
+
+## Demos
+To run our demos us (from the streamlit folder):
+
+streamlit run home.py
+streamlit run home_buynsell.py
 
 ## Summary of the analysis
 See [Presentation1.pptx](Presentation1.pptx), [Presentation2.pptx](Presentation2.pptx), and [Presentation3.pptx](Presentation3.pptx)
