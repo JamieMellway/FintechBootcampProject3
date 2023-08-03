@@ -116,8 +116,6 @@ def render_page():
         lat = 43.7182116
         lon = -79.4604573
 
-    # address_found = geo_address
-    # address_found = address_found.replace(',', '')
     st.write(f"Using Address: {address_found}")
     map_df = pd.DataFrame(
         [[lat, lon]],
@@ -129,13 +127,7 @@ def render_page():
                               data=map_df,
                               get_position='[lon, lat]',
                               get_color='[200, 30, 0, 160]',
-                              # radiusUnits='pixels',
-                              # maxPixelRadius=20,
-                              # minPixelRadius=20,
                               get_radius=5,
-                              # get_radius=view_state.zoom,
-                              # radiusScale=1,
-                              # radiusScale=2**(view_state.zoom/3),
                              )
     scatter_layer.get_radius = "1 / view_state.zoom"
     deck = pdk.Deck(
