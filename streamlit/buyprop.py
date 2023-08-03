@@ -50,7 +50,8 @@ def render_page():
     ################################################################################
     accounts = w3.eth.accounts
     st.markdown("# Buy A Property")
-    tokens = contract.functions.collectionSize().call()
+    tokens = contract.functions.totalSupply().call()
+    # tokens = contract.functions.collectionSize().call()
 
     # if the collectionSize is greater than 0 then we can import the propCollection into a dictionary
     # which we'll use to create a dataframe
@@ -58,12 +59,13 @@ def render_page():
 
     if tokens > 0 :
         for prop in range(tokens):
-            prop_collection[prop] = {'address':contract.functions.propCollection(prop).call()[0],
-                                     'geoAddress':contract.functions.propCollection(prop).call()[1],
-                                     'propType':contract.functions.propCollection(prop).call()[2],
-                                     'appraisalValue':contract.functions.propCollection(prop).call()[3],
-                                     'propJson':contract.functions.propCollection(prop).call()[4],
-                                     }
+            if contract.functions.propCollection(prop).call()[0] != '0x0000000000000000000000000000000000000000':
+                prop_collection[prop] = {'address':contract.functions.propCollection(prop).call()[0],
+                                        'geoAddress':contract.functions.propCollection(prop).call()[1],
+                                        'propType':contract.functions.propCollection(prop).call()[2],
+                                        'appraisalValue':contract.functions.propCollection(prop).call()[3],
+                                        'propJson':contract.functions.propCollection(prop).call()[4],
+                                        }
         props_df = pd.DataFrame(prop_collection).T
         selected_address = st.selectbox("Choose a property", props_df['geoAddress'])
         token_id = int(props_df.index[props_df['geoAddress'] == selected_address][0])
