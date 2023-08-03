@@ -125,7 +125,7 @@ The token contract inherits ERC721 as well as a custom contract for transfering 
 3. Click on 'Buy'
 
 ## Environment Setup
-See [InstallationNotes.txt], [packages.txt], and [streamlit/requirements.txt]
+See [InstallationNotes.txt](InstallationNotes.txt), [packages.txt](packages.txt), and [requirements.txt](streamlit/requirements.txt)
 
 ## Summary of the analysis
-See [Presentation1.pptx] and [Presentation2.pptx]
+See [Presentation1.pptx](Presentation1.pptx) and [Presentation2.pptx](Presentation2.pptx)
