@@ -22,6 +22,7 @@ contract PropertyRegistry is ERC721Full, payForProperty {
     constructor() public ERC721Full("PropertyRegistryToken", "HOME") {}
 
     address payable contractAddress = address(uint160(address(this)));
+    uint public collectionSize = 0;
 
     struct Property {
         address owner;
@@ -58,6 +59,7 @@ contract PropertyRegistry is ERC721Full, payForProperty {
         _setTokenURI(tokenId, tokenURI);
 
         propCollection[tokenId] = Property(owner, geoAddress, propType, initialAppraisalValue, tokenJSON);
+        collectionSize++;
 
         return tokenId;
     }
@@ -75,6 +77,7 @@ contract PropertyRegistry is ERC721Full, payForProperty {
         sendPayment(seller_address, buyer_address, amount);
         safeTransferFrom(seller_address, buyer_address, token_id);
         delete propCollection[token_id];
+        collectionSize--;
     }
 
     function newAppraisal(
