@@ -1,4 +1,4 @@
-### Create new environment
+### Create new environment for Public Website
 
 conda create -n project3 python=3.7 anaconda
 conda activate project3
@@ -8,11 +8,20 @@ conda install -c pyviz hvplot geoviews
 pip install protobuf==3.20.*
 pip install altair==4.0
 pip install geopy
-pip install alpaca-trade-api
 pip install --force-reinstall --no-deps bokeh==2.4.1
-pip install boto3
 pip install streamlit-chat 
+#python -m pip freeze > streamlit/requirements_output.txt
 
-cd streamlit
-python -m pip freeze > requirements_output.txt
-# Edit requirements.txt to only be the above packages
+### Create new environment for Local BlockChain Demo
+
+conda create -n blockchain python=3.7 anaconda
+conda activate project3
+pip install web3
+pip install dotenv
+pip install streamlit
+pip install boto3
+pip install dotenv
+pip install requests
+pip install geopy
+pip install pydeck
+
