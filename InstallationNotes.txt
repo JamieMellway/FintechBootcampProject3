@@ -9,18 +9,18 @@ pip install protobuf==3.20.*
 pip install altair==4.0
 pip install geopy
 pip install --force-reinstall --no-deps bokeh==2.4.1
+pip install requests
 pip install streamlit-chat 
 #python -m pip freeze > streamlit/requirements_output.txt
 
 ### Create new environment for Local BlockChain Demo
 
 conda create -n blockchain python=3.7 anaconda
-conda activate project3
+conda activate blockchain
 pip install web3
-pip install dotenv
 pip install streamlit
 pip install boto3
-pip install dotenv
+pip install python-dotenv
 pip install requests
 pip install geopy
 pip install pydeck

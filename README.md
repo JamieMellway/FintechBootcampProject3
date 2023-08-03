@@ -13,7 +13,12 @@ Analyzing Ontario Real Estate data for trends (monthly and regional) and project
 
 ### Dependencies
 This project utilizes the following packages:
+- [Python 3.7](https://www.python.org/)
+- [NumPy 1.23.5](https://numpy.org/)
+- [pandas 2.0.1](https://pandas.pydata.org/)
+- [hvPlot 0.8.3](https://hvplot.holoviz.org/)
 - [GeoPy 2.3.0](https://pypi.org/project/geopy/)
+- [streamlit 1.9.0](https://pypi.org/project/streamlit/)
 
 ### 1. What are the trends for Ontario real estate for 2005-2023? (Monthly)
 
@@ -35,7 +40,7 @@ This project utilizes the following packages:
 
 ![Monte Carlo Simulation](Images/MonteCarlo.png "Monte Carlo Simulation")
 
-There is a 95% chance that an initial real estate investment of \\$1,000,000 over the next 10 years will end within in the range of \\$1,661,548.91 and \\$2,690,245.89.
+There is a 95% chance that an initial real estate investment of $1,000,000 over the next 10 years will end within in the range of $1,661,548.91 and $2,690,245.89.
 
 ## Project 2 Redux
 This project uses neural networks to create a model that predicts Ontario housing prices. The model is used through an Amazon Lex chatbot that allows the user to pick a region in Ontario and a building type that they are interested in. The chatbot gives the user the option to choose a date for the price as well.
@@ -45,13 +50,15 @@ There are many contributing factors to Ontario's housing market. Housing prices 
 
 ### Dependencies
 This project utilizes the following packages:
-- [Python 3.10.10](https://www.python.org/)
+- [Python 3.7](https://www.python.org/)
 - [NumPy 1.23.5](https://numpy.org/)
 - [pandas 2.0.1](https://pandas.pydata.org/)
 - [hvPlot 0.8.3](https://hvplot.holoviz.org/)
 - [scikit-learn 1.2.2](https://scikit-learn.org/stable/)
 - [TensorFlow 2.12.0](https://www.tensorflow.org/)
 - [Keras 2.12.0](https://keras.io/)
+- [streamlit 1.9.0](https://pypi.org/project/streamlit/)
+- [streamlit-chat 0.1.1](https://pypi.org/project/streamlit-chat/)
 
 ### Data
 Data was collected and analyzed to create the best model. Altogether, there are 13 features and 161 predictors, each with 176 data points.
@@ -128,4 +135,4 @@ The token contract inherits ERC721 as well as a custom contract for transfering 
 See [InstallationNotes.txt](InstallationNotes.txt), [packages.txt](packages.txt), and [requirements.txt](streamlit/requirements.txt)
 
 ## Summary of the analysis
-See [Presentation1.pptx](Presentation1.pptx) and [Presentation2.pptx](Presentation2.pptx)
+See [Presentation1.pptx](Presentation1.pptx), [Presentation2.pptx](Presentation2.pptx), and [Presentation3.pptx](Presentation3.pptx)
